@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V-Bucks Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://media.steelseriescdn.com/blog/posts/fortnite-list-of-augments-from-chapter-5/fortnite-main-banner_bc195a6e28dc43f7b6a2f149e73c7908.jpg') no-repeat center center fixed;
+            background-size: cover; /* Zorg ervoor dat de achtergrond zich uitstrekt over het hele scherm */
+            color: #fff; /* Witte tekst voor algemene tekst */
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparant witte achtergrond om leesbaarheid te verbeteren */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .code-box {
+            font-size: 1.5em;
+            font-family: monospace;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: inline-block;
+            width: calc(100% - 120px);
+            word-wrap: break-word;
+            color: #000; /* Zwarte tekst voor de code */
+        }
+        .copy-btn, .redeem-btn {
+            padding: 10px 15px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .copy-btn:hover, .redeem-btn:hover {
+            background-color: #45a049;
+        }
+        .checked {
+            color: green;
+            margin-left: 10px;
+            font-size: 1.5em;
+        }
+        .redeem-btn {
+            background-color: #007bff;
+        }
+        .redeem-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>V-Bucks Code Generator</h1>
+        <div>
+            <div class="code-box" id="code">Klik op de knop om een code te genereren</div>
+            <button class="copy-btn" onclick="copyCode()">Kopieer Code</button>
+            <span id="checkmark" class="checked" style="visibility: hidden;">&#10004;</span>
+        </div>
+        <button class="copy-btn" onclick="generateCode()">Genereer Nieuwe Code</button>
+        <div id="redeem-section" style="visibility: hidden;">
+            <a id="redeem-link" class="redeem-btn" href="#" target="_blank">V-Bucks Inwisselen</a>
+        </div>
+    </div>
+
+    <script>
+        // Functie om een willekeurige 16-cijferige alfanumerieke code te genereren
+        function generateCode() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            const length = 16;
+
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                result += characters.charAt(randomIndex);
+            }
+
+            // Zet de gegenereerde code in de code-box
+            document.getElementById('code').textContent = result;
+            // Verberg de vink en de redeem knop totdat de code is gekopieerd
+            document.getElementById('checkmark').style.visibility = 'hidden';
+            document.getElementById('redeem-section').style.visibility = 'hidden';
+        }
+
+        // Functie om de code naar het klembord te kopiëren
+        function copyCode() {
+            const codeText = document.getElementById('code').textContent;
+            const textArea = document.createElement('textarea');
+            textArea.value = codeText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // Zet een vinkje naast de code en toon de redeem-knop
+            document.getElementById('checkmark').style.visibility = 'visible';
+            document.getElementById('redeem-section').style.visibility = 'visible';
+
+            // Maak de link dynamisch met de gekopieerde code
+            const redeemLink = document.getElementById('redeem-link');
+            redeemLink.href = `https://www.fortnite.com/vbuckscard?lang=en-US?code=${codeText}`;
+        }
+
+        // Genereer een code bij het laden van de pagina
+        window.onload = generateCode;
+    </script>
+
+</body>
+</html>
