@@ -10,13 +10,13 @@
             margin: 0;
             padding: 0;
             background: url('https://media.steelseriescdn.com/blog/posts/fortnite-list-of-augments-from-chapter-5/fortnite-main-banner_bc195a6e28dc43f7b6a2f149e73c7908.jpg') no-repeat center center fixed;
-            background-size: cover; /* Ensure the background stretches over the entire screen */
-            color: #fff; /* White text for general text */
+            background-size: cover;
+            color: #fff;
         }
         .container {
             max-width: 600px;
             margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background to improve readability */
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -36,7 +36,7 @@
             display: inline-block;
             width: calc(100% - 120px);
             word-wrap: break-word;
-            color: #000; /* Black text for the code */
+            color: #000;
         }
         .checked {
             color: green;
@@ -52,7 +52,7 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
-            display: none; /* Initially hidden */
+            display: none;
         }
         .redeem-btn:hover {
             background-color: #0056b3;
@@ -80,7 +80,9 @@
             <div class="code-box" id="code">Click the button to generate a code</div>
             <span id="checkmark" class="checked" style="visibility: hidden;">Copied!</span>
         </div>
+        <!-- Redeem button -->
         <button class="redeem-btn" id="redeem-link" target="_blank">Redeem V-Bucks</button>
+        <!-- Generate New Code button -->
         <button class="generate-btn" onclick="generateCode()">Generate New Code</button>
     </div>
 
@@ -91,19 +93,21 @@
             let result = '';
             const length = 16;
 
+            // Generate the code
             for (let i = 0; i < length; i++) {
                 const randomIndex = Math.floor(Math.random() * characters.length);
                 result += characters.charAt(randomIndex);
             }
 
-            // Set the generated code in the code-box
+            // Update the code box with the generated code
             document.getElementById('code').textContent = result;
+
             // Hide the checkmark and redeem button until the code is copied
             document.getElementById('checkmark').style.visibility = 'hidden';
             document.getElementById('redeem-link').style.display = 'none'; 
         }
 
-        // Function to copy the code to the clipboard and display a checkmark
+        // Function to copy the code to the clipboard and show the redeem button
         function copyCode() {
             const codeText = document.getElementById('code').textContent;
             const textArea = document.createElement('textarea');
@@ -127,7 +131,7 @@
             generateCode();
         };
 
-        // Add event listener for copy action on the code box
+        // Add event listener to copy the code when clicked
         document.getElementById('code').addEventListener('click', copyCode);
     </script>
 
