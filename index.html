@@ -38,26 +38,21 @@
             word-wrap: break-word;
             color: #000; /* Black text for the code */
         }
-        .copy-btn, .redeem-btn {
-            padding: 10px 15px;
-            font-size: 1em;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .copy-btn:hover, .redeem-btn:hover {
-            background-color: #45a049;
-        }
         .checked {
             color: green;
             margin-left: 10px;
             font-size: 1.5em;
         }
         .redeem-btn {
+            padding: 10px 15px;
+            font-size: 1em;
             background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: none; /* Initially hidden */
         }
         .redeem-btn:hover {
             background-color: #0056b3;
@@ -70,13 +65,10 @@
         <h1>V-Bucks Code Generator</h1>
         <div>
             <div class="code-box" id="code">Click the button to generate a code</div>
-            <button class="copy-btn" onclick="copyCode()">Copy Code</button>
-            <span id="checkmark" class="checked" style="visibility: hidden;">&#10004;</span>
+            <span id="checkmark" class="checked" style="visibility: hidden;">Copied!</span>
         </div>
-        <button class="copy-btn" onclick="generateCode()">Generate New Code</button>
-        <div id="redeem-section" style="visibility: hidden;">
-            <a id="redeem-link" class="redeem-btn" href="#" target="_blank">Redeem V-Bucks</a>
-        </div>
+        <button class="redeem-btn" id="redeem-link" href="#" target="_blank">Redeem V-Bucks</button>
+        <button class="redeem-btn" onclick="generateCode()">Generate New Code</button>
     </div>
 
     <script>
@@ -95,10 +87,10 @@
             document.getElementById('code').textContent = result;
             // Hide the checkmark and redeem button until the code is copied
             document.getElementById('checkmark').style.visibility = 'hidden';
-            document.getElementById('redeem-section').style.visibility = 'hidden';
+            document.getElementById('redeem-link').style.display = 'none'; 
         }
 
-        // Function to copy the code to the clipboard
+        // Function to copy the code to the clipboard and display a checkmark
         function copyCode() {
             const codeText = document.getElementById('code').textContent;
             const textArea = document.createElement('textarea');
@@ -108,17 +100,20 @@
             document.execCommand('copy');
             document.body.removeChild(textArea);
             
-            // Display a checkmark next to the code and show the redeem button
+            // Show the "Copied!" checkmark and display the redeem button
             document.getElementById('checkmark').style.visibility = 'visible';
-            document.getElementById('redeem-section').style.visibility = 'visible';
+            document.getElementById('redeem-link').style.display = 'block';
 
             // Dynamically set the redeem link with the copied code
             const redeemLink = document.getElementById('redeem-link');
-            redeemLink.href = `https://www.fortnite.com/vbuckscard?lang=en-US?code=${codeText}`;
+            redeemLink.href = `https://www.fortnite.com/vbuckscard?lang=en-US&code=${codeText}`;
         }
 
         // Generate a code when the page loads
-        window.onload = generateCode;
+        window.onload = function() {
+            generateCode();
+            setTimeout(copyCode, 100); // Automatically copy the code right after generating
+        };
     </script>
 
 </body>
