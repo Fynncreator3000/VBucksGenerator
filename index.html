@@ -57,6 +57,19 @@
         .redeem-btn:hover {
             background-color: #0056b3;
         }
+        .generate-btn {
+            padding: 10px 15px;
+            font-size: 1em;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .generate-btn:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -67,8 +80,8 @@
             <div class="code-box" id="code">Click the button to generate a code</div>
             <span id="checkmark" class="checked" style="visibility: hidden;">Copied!</span>
         </div>
-        <button class="redeem-btn" id="redeem-link" href="#" target="_blank">Redeem V-Bucks</button>
-        <button class="redeem-btn" onclick="generateCode()">Generate New Code</button>
+        <button class="redeem-btn" id="redeem-link" target="_blank">Redeem V-Bucks</button>
+        <button class="generate-btn" onclick="generateCode()">Generate New Code</button>
     </div>
 
     <script>
@@ -112,8 +125,10 @@
         // Generate a code when the page loads
         window.onload = function() {
             generateCode();
-            setTimeout(copyCode, 100); // Automatically copy the code right after generating
         };
+
+        // Add event listener for copy action on the code box
+        document.getElementById('code').addEventListener('click', copyCode);
     </script>
 
 </body>
